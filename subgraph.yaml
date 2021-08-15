@@ -1,0 +1,38 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Core
+    network: mumbai
+    source:
+      address: "0x6FDA6eF4c152Ba700b080f2a299b3A8A8E659312"
+      abi: Core
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - TokenAddedToTrade
+        - TokenRemovedFromTrade
+        - TradeExtended
+        - TradeFinalized
+        - TradeStarted
+        - UserTradeStateChange
+      abis:
+        - name: Core
+          file: ./abis/Core.json
+      eventHandlers:
+        - event: TokenAddedToTrade(indexed bytes32,address,uint256,uint256)
+          handler: handleTokenAddedToTrade
+        - event: TokenRemovedFromTrade(indexed bytes32,address,uint256,uint256)
+          handler: handleTokenRemovedFromTrade
+        - event: TradeExtended(indexed bytes32,address,uint256)
+          handler: handleTradeExtended
+        - event: TradeFinalized(bytes32)
+          handler: handleTradeFinalized
+        - event: TradeStarted(indexed bytes32,address,address,address,address)
+          handler: handleTradeStarted
+        - event: UserTradeStateChange(indexed bytes32,address,bool)
+          handler: handleUserTradeStateChange
+      file: ./src/mapping.ts
