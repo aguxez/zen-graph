@@ -1,6 +1,6 @@
 specVersion: 0.0.2
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: Core
@@ -21,7 +21,7 @@ dataSources:
         - UserTradeStateChange
       abis:
         - name: Core
-          file: ./abis/Core.json
+          file: Core/abis/Core.json
       eventHandlers:
         - event: TokenAddedToTrade(indexed bytes32,address,uint256,uint256)
           handler: handleTokenAddedToTrade
@@ -35,4 +35,4 @@ dataSources:
           handler: handleTradeStarted
         - event: UserTradeStateChange(indexed bytes32,address,bool)
           handler: handleUserTradeStateChange
-      file: ./src/mapping.ts
+      file: Core/Core.wasm
